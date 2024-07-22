@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Wafflería Deliciosa</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #FEF5E7;
+        }
+
+        header, main, footer {
+            text-align: center;
+        }
+
+        nav {
+            background-color: #f8b400;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #ddd;
+            margin: 20px 0;
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+        }
+
+        .form-section label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .form-section input[type="text"],
+        .form-section input[type="email"],
+        .form-section textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-section input[type="submit"],
+        .form-section input[type="reset"] {
+            margin-top: 10px;
+            padding: 10px 20px;
+        }
+
+        .destacado {
+            font-family: 'Trebuchet MS', sans-serif;
+            color: #17202A;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 0;
+            background-color: #fff;
+        }
+
+        .hero-content {
+            text-align: left;
+            max-width: 600px;
+        }
+
+        .hero-content h1 {
+            font-size: 3em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 1.2em;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .hero-content .menu-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #f8b400;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .hero-content .menu-button:hover {
+            background-color: #e68a00;
+        }
+
+        .hero img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .product {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .product img:hover {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        #product-info {
+            display: none;
+            text-align: left;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        #product-info h3 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        #product-info p {
+            font-size: 1.2em;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #close-info {
+            display: block;
+            text-align: right;
+            margin-top: -10px;
+            margin-right: -10px;
+        }
+
+        #close-info button {
+            background-color: transparent;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #999;
+        }
+
+        #close-info button:hover {
+            color: #333;
+        }
+
+        #mensajeEnviado {
+            display: none;
+            margin-top: 10px;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            text-align: center;
+        }
+
+        footer {
+            background: #ffe4c4;
+            padding: 60px 0 30px 0;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .contenedor-footer {
+            display: flex;
+            width: 90%;
+            justify-content: space-evenly;
+            margin: auto;
+            padding-bottom: 50px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .content-foo {
+            text-align: center;
+        }
+
+        .content-foo h4 {
+            color: black;
+            border-bottom: 3px solid #F7971E;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .content-foo p {
+            color: black;
+        }
+
+        .titulo-final {
+            text-align: center;
+            font-size: 24px;
+            margin: 20px 0 0 0;
+            color: black;
+        }
+
+        /* Carrusel */
+        .carousel {
+            position: relative;
+            max-width: 25%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .carousel img {
+            width: 100%;
+            height: auto;
+        }
+
+        .carousel-item {
+            display: none;
+            animation: fade 0.5s ease-in-out;
+        }
+
+        .carousel-item.active {
+            display: block;
+        }
+
+        @keyframes fade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        /* Testimonios */
+        .testimonios {
+            background-color: #f8f9fa;
+            padding: 50px 0;
+        }
+
+        .testimonios h2 {
+            margin-bottom: 30px;
+        }
+
+        .testimonios .testimonio {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            text-align: left;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonios .testimonio p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .testimonios .testimonio .autor {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        /* Galería de Fotos */
+        .galeria {
+            padding: 50px 0;
+        }
+
+        .galeria h2 {
+            margin-bottom: 30px;
+        }
+
+        .galeria img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .galeria img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Wafflería Deliciosa</h1>
+    </header>
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#productos">Productos</a>
+        <a href="#testimonios">Testimonios</a>
+        <a href="#galeria">Galería</a>
+        <a href="#contactenos">Contáctenos</a>
+    </nav>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <h1>Bienvenidos a la Wafflería Deliciosa</h1>
+                <p>En Wafflería Deliciosa, ofrecemos los mejores waffles de la ciudad, elaborados con ingredientes frescos y de alta calidad. Nuestro compromiso es brindarte una experiencia única con cada bocado. ¡Ven y disfruta de nuestras delicias!</p>
+                <a href="#productos" class="menu-button">Menu</a>
+            </div>
+            <img src="imagenes/waffles.jpg" alt="Deliciosos waffles">
+        </section>
+
+        <!-- Carrusel -->
+        <section class="carousel">
+            <div class="carousel-item active">
+                <img src="imagenes/equipo.jpg" alt="Waffle de Chocolate">
+            </div>
+            <div class="carousel-item">
+                <img src="imagenes/lugar.jpg" alt="Waffle con Frutas">
+            </div>
+            <div class="carousel-item">
+                <img src="imagenes/promo.jpg" alt="Waffle Clásico">
+            </div>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </section>
+
+        <section id="productos">
+            <h2>Conoce nuestros productos</h2>
+            <div class="product-container">
+                <div class="product">
+                    <img src="imagenes/waffles_clasicos.jpg" alt="Waffles Clásicos" data-info="Los waffles clásicos son una deliciosa combinación de sabor y textura. Preparados con una receta tradicional, estos waffles son esponjosos por dentro y crujientes por fuera. Su aroma irresistible y su sabor dulce aportan una sensación reconfortante en cada bocado. Perfectos para disfrutar solos con sirope de arce, mantequilla derretida o una pizca de azúcar en polvo.">
+                </div>
+                <div class="product">
+                    <img src="imagenes/waffles_frutas.jpg" alt="Waffles con Frutas" data-info="Los waffles con frutas son una explosión de frescura y color. Cargados con una variedad de frutas frescas, como fresas, plátanos, arándanos o kiwis, estos waffles son una opción saludable y deliciosa. La combinación de la dulzura natural de las frutas con la suavidad de los waffles crea una experiencia gustativa única que deleita los sentidos.">
+                </div>
+                <div class="product">
+                    <img src="imagenes/waffles_chocolate.jpg" alt="Waffles con Chocolate" data-info="Los waffles con chocolate son un capricho irresistible para los amantes del dulce. Preparados con una masa suave y esponjosa, estos waffles están rellenos de trozos de chocolate derretido que se derriten en tu boca con cada mordisco. Decorados con una generosa cantidad de sirope de chocolate y una pizca de virutas de chocolate, estos waffles son el postre perfecto para satisfacer tus antojos más golosos.">
+                </div>
+                <div class="product">
+                    <img src="imagenes/waffles_salados.jpg" alt="Waffles Salados" data-info="Los waffles salados son una opción deliciosa y versátil que combina lo mejor de ambos mundos: el sabor reconfortante de un plato salado con la textura crujiente de los waffles. Preparados con una masa salada y aromatizados con hierbas frescas, queso rallado o trozos de tocino, estos waffles son perfectos para servir como desayuno, almuerzo o cena. Puedes disfrutarlos solos o acompañados de ingredientes salados como pollo frito, huevos revueltos o aguacate.">
+                </div>
+            </div>
+            <div id="product-info">
+                <div id="close-info"><button onclick="closeProductInfo()">&times;</button></div>
+                <h3 id="product-title"></h3>
+                <p id="product-description"></p>
+            </div>
+        </section>
+
+        <!-- Testimonios -->
+        <section id="testimonios" class="testimonios">
+            <h2>Lo que dicen nuestros clientes</h2>
+            <div class="testimonio">
+                <p>"Los mejores waffles que he probado en mi vida. La textura y el sabor son simplemente perfectos."</p>
+                <p class="autor">- Juan Pérez</p>
+            </div>
+            <div class="testimonio">
+                <p>"Me encantan los waffles con frutas, siempre frescos y deliciosos. ¡Totalmente recomendados!"</p>
+                <p class="autor">- María García</p>
+            </div>
+            <div class="testimonio">
+                <p>"La atención al cliente es excelente y los waffles de chocolate son mi debilidad. ¡Volveré sin duda!"</p>
+                <p class="autor">- Carlos López</p>
+            </div>
+        </section>
+
+        
+       
+        <section id="contactenos">
+            <h2>Contáctenos</h2>
+            <form onsubmit="showMensajeEnviado(event)">
+                <div class="form-section">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-section">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-section">
+                    <label for="mensaje">Mensaje:</label>
+                    <textarea id="mensaje" name="mensaje" required></textarea>
+                </div>
+                <div class="form-section">
+                    <input type="submit" value="Enviar">
+                    <input type="reset" value="Resetear">
+                </div>
+                <div id="mensajeEnviado">¡Mensaje enviado con éxito!</div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="contenedor-footer">
+            <div class="content-foo">
+                <h4>Teléfono</h4>
+                <p>999888111</p>
+            </div>
+            <div class="content-foo">
+                <h4>Email</h4>
+                <p>info@waffleriadeliciosa.com</p>
+            </div>
+            <div class="content-foo">
+                <h4>Dirección</h4>
+                <p>Av 28 de Julio</p>
+            </div>
+        </div>
+        <h2 class="titulo-final">&copy; 2024 Wafflería Deliciosa</h2>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const productImages = document.querySelectorAll('.product img');
+            const productInfo = document.getElementById('product-info');
+            const productTitle = document.getElementById('product-title');
+            const productDescription = document.getElementById('product-description');
+
+            productImages.forEach(img => {
+                img.addEventListener('click', () => {
+                    const title = img.alt;
+                    const description = img.dataset.info;
+                    productTitle.textContent = title;
+                    productDescription.textContent = description;
+                    productInfo.style.display = 'block';
+                });
+            });
+
+            let slideIndex = 0;
+            showSlides();
+
+            function showSlides() {
+                let i;
+                const slides = document.querySelectorAll('.carousel-item');
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = 'none';
+                }
+                slideIndex++;
+                if (slideIndex > slides.length) {
+                    slideIndex = 1;
+                }
+                slides[slideIndex - 1].style.display = 'block';
+                setTimeout(showSlides, 3000); // Change image every 3 seconds
+            }
+        });
+
+        function closeProductInfo() {
+            const productInfo = document.getElementById('product-info');
+            productInfo.style.display = 'none';
+        }
+
+        function showMensajeEnviado(event) {
+            event.preventDefault();
+            const mensajeEnviado = document.getElementById('mensajeEnviado');
+            mensajeEnviado.style.display = 'block';
+        }
+
+        function plusSlides(n) {
+            let slideIndex = 0;
+            const slides = document.querySelectorAll('.carousel-item');
+            slides.forEach(slide => {
+                slide.style.display = 'none';
+            });
+            slideIndex += n;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            } else if (slideIndex < 1) {
+                slideIndex = slides.length;
+            }
+            slides[slideIndex - 1].style.display = 'block';
+        }
+    </script>
+</body>
+</html>
